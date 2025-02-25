@@ -28,6 +28,7 @@ class Profile(models.Model):
         related_name="profile"
     )
     age = models.SmallIntegerField(null=True, blank=True, verbose_name="Возраст")
+    mood = models.SmallIntegerField(null=True, blank=True, verbose_name="Эмоциональное состояние")  # Новое поле
     education = models.CharField(max_length=255, null=True, blank=True, verbose_name="Образование")
     speciality = models.CharField(max_length=255, null=True, blank=True, verbose_name="Специальность")
     residence = models.CharField(max_length=255, null=True, blank=True, verbose_name="Место жительства")
