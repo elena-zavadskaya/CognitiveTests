@@ -137,5 +137,5 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Разрешить запросы с фронтенда
+    "http://localhost:5183",  # Разрешить запросы с фронтенда
 ]

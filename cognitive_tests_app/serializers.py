@@ -23,12 +23,19 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ResultSerializer(serializers.ModelSerializer):
-    test = serializers.PrimaryKeyRelatedField(queryset=Test.objects.all())  # Используем PrimaryKeyRelatedField
+    test = serializers.PrimaryKeyRelatedField(queryset=Test.objects.all())
     user = serializers.PrimaryKeyRelatedField(queryset=AppUser.objects.all())
 
     class Meta:
         model = Result
-        fields = ['test', 'user', 'score_percentage']
+        fields = [
+            'test',
+            'user',
+            'score_percentage',
+            'time',
+            'number_all_answers',
+            'number_correct_answers'
+        ]
 
 class TestSerializer(serializers.ModelSerializer):
     class Meta:

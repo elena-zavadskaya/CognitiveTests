@@ -1,16 +1,35 @@
 from django.contrib import admin
+from django.urls import path
+from django.urls import reverse
+from django.utils.html import format_html
 from .models import AppUser, Profile, Test, Result
+from .views import export_users_results_excel  # Функция экспорта
 
-@admin.register(AppUser)
 class AppUserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nickname')
+    list_display = ('id', 'nickname')  # Убрали export_button из списка
     search_fields = ('nickname',)
     list_filter = ('nickname',)
+    change_list_template = "admin/appuser_changelist.html"  # Подключаем кастомный шаблон
+
+    def get_urls(self):
+        """Добавляем кастомный URL для экспорта"""
+        urls = super().get_urls()
+        custom_urls = [
+            path('export/', self.admin_site.admin_view(self.export_users_results), name='export_users_results'),
+        ]
+        return custom_urls + urls
+
+    def export_users_results(self, request):
+        """Вызывает функцию экспорта"""
+        return export_users_results_excel(request)
+
+# Регистрируем модель
+admin.site.register(AppUser)
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'age', 'education', 'speciality')
-    search_fields = ('user__nickname', 'education', 'speciality')  # Исправлена опечатка: 'speciality' вместо 'speciality'
+    search_fields = ('user__nickname', 'education', 'speciality')
     list_filter = ('education', 'speciality', 'smoking', 'gaming')
 
 @admin.register(Test)
@@ -21,6 +40,18 @@ class TestAdmin(admin.ModelAdmin):
 
 @admin.register(Result)
 class ResultAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'test', 'score_percentage', 'time_spent', 'total_questions', 'correct_answers')  # Добавлены поля
+    list_display = (
+        'id',
+        'user',
+        'test',
+        'score_percentage',
+        'time',                  # Переименовано с time_spent
+        'number_all_answers',    # Переименовано с total_questions
+        'number_correct_answers' # Переименовано с correct_answers
+    )
     search_fields = ('user__nickname', 'test__title')
-    list_filter = ('test__title', 'score_percentage', 'total_questions')  # Добавлен фильтр
+    list_filter = (
+        'test__title',
+        'score_percentage',
+        'number_all_answers'     # Переименовано с total_questions
+    )

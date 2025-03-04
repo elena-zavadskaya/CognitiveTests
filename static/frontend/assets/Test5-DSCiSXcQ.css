@@ -1,0 +1,1 @@
+.game-area{display:grid;grid-template-columns:repeat(6,60px);gap:10px;margin-top:20px}.square{width:60px;height:60px;background-color:#d3d3d3;border:1px solid #333;display:flex;align-items:center;justify-content:center;cursor:pointer}.square.active{background-color:red}
