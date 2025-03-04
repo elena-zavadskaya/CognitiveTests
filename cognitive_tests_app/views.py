@@ -155,9 +155,9 @@ def export_users_results_excel(request):
                 attempts = test_attempts.get(test.title, [])
                 if attempt_idx < len(attempts):
                     row[f"% выполнения ({test.title})"] = attempts[attempt_idx].score_percentage
-                    row[f"Время выполнения ({test.title})"] = attempts[attempt_idx].time_spent
-                    row[f"Количество правильных ответов ({test.title})"] = attempts[attempt_idx].correct_answers
-                    row[f"Количество вопросов ({test.title})"] = attempts[attempt_idx].total_questions
+                    row[f"Время выполнения ({test.title})"] = attempts[attempt_idx].time
+                    row[f"Количество правильных ответов ({test.title})"] = attempts[attempt_idx].number_correct_answers
+                    row[f"Количество вопросов ({test.title})"] = attempts[attempt_idx].number_all_answers
 
             data.append(row)
 

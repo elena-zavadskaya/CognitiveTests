@@ -24,7 +24,7 @@ class AppUserAdmin(admin.ModelAdmin):
         return export_users_results_excel(request)
 
 # Регистрируем модель
-admin.site.register(AppUser)
+admin.site.register(AppUser, AppUserAdmin)
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
