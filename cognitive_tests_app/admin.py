@@ -6,10 +6,10 @@ from .models import AppUser, Profile, Test, Result
 from .views import export_users_results_excel  # Функция экспорта
 
 class AppUserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nickname')  # Убрали export_button из списка
+    list_display = ('id', 'nickname')
     search_fields = ('nickname',)
     list_filter = ('nickname',)
-    change_list_template = "admin/appuser_changelist.html"  # Подключаем кастомный шаблон
+    change_list_template = "admin/appuser_changelist.html"
 
     def get_urls(self):
         """Добавляем кастомный URL для экспорта"""
@@ -23,7 +23,6 @@ class AppUserAdmin(admin.ModelAdmin):
         """Вызывает функцию экспорта"""
         return export_users_results_excel(request)
 
-# Регистрируем модель
 admin.site.register(AppUser, AppUserAdmin)
 
 @admin.register(Profile)
@@ -45,13 +44,13 @@ class ResultAdmin(admin.ModelAdmin):
         'user',
         'test',
         'score_percentage',
-        'time',                  # Переименовано с time_spent
-        'number_all_answers',    # Переименовано с total_questions
-        'number_correct_answers' # Переименовано с correct_answers
+        'time',
+        'number_all_answers',
+        'number_correct_answers'
     )
     search_fields = ('user__nickname', 'test__title')
     list_filter = (
         'test__title',
         'score_percentage',
-        'number_all_answers'     # Переименовано с total_questions
+        'number_all_answers'
     )

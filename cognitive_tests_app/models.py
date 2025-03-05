@@ -67,10 +67,9 @@ class Result(models.Model):
     test = models.ForeignKey(Test, on_delete=models.CASCADE, verbose_name="Тест")
     user = models.ForeignKey(AppUser, on_delete=models.CASCADE, verbose_name="Пользователь")
     score_percentage = models.IntegerField(verbose_name="Процент правильных ответов")
-    # Старое название ↓↓↓          Новое название ↓↓↓
-    time = models.CharField(max_length=20, verbose_name="Время выполнения теста")  # Было time_spent
-    number_all_answers = models.PositiveIntegerField(verbose_name="Количество вопросов")  # Было total_questions
-    number_correct_answers = models.PositiveIntegerField(verbose_name="Правильных ответов")  # Было correct_answers
+    time = models.CharField(max_length=20, verbose_name="Время выполнения теста")
+    number_all_answers = models.PositiveIntegerField(verbose_name="Количество вопросов")
+    number_correct_answers = models.PositiveIntegerField(verbose_name="Правильных ответов")
 
     def __str__(self):
         return f"Результат пользователя {self.user.nickname} в тесте {self.test.title}: {self.score_percentage}%"
